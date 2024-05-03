@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC 
+"-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="userMapper">
+
+	<select id="getUsersPage" parameterType="hashMap" resultType="mvc.dto.UserDTO">
+		<![CDATA[
+			select idx,id,password,name,role,regdate 
+			from users 
+			order by idx desc
+			limit #{amount} offset #{offset}
+		]]>
+	</select>
+
+	<select id="getUsers" resultType="mvc.dto.UserDTO">
+		<![CDATA[
+			select idx,id,password,name,role,regdate from users order by idx desc
+		]]>
+	</select>
+	
+	<select id="getUserCount" resultType="int">
+		<![CDATA[
+			select count(idx) from users order by idx desc
+		]]>
+	</select>
+	
+	<select id="getUser" parameterType="userDTO" resultType="userDTO">
+		<![CDATA[
+		select idx,id,password,name,role,regdate from users where id = #{id}
+		]]>
+	</select>
+	
+	<insert id="insertUser" parameterType="userDTO">
+		<![CDATA[
+		insert into users(id,password,name,role) values(#{id},#{password},#{name},#{role})
+		]]>
+	</insert>	
+	
+
+</mapper>
